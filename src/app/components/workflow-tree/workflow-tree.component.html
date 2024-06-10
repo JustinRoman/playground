@@ -1,0 +1,33 @@
+<ngx-graph
+  [view]="[800,400]"
+  [nodes]="nodes"
+  [links]="edges"
+  [draggingEnabled]="false"
+  [autoZoom]="true"
+  [autoCenter]="true"
+  [animate]="false"
+>
+  <ng-template #nodeTemplate let-node>
+    <svg:g>
+      <svg:rect
+        rx="5" 
+        ry="5"
+        [attr.style]="'stroke-width:1'"
+        [attr.stroke]="node.data.customBorder"
+        [attr.width]="node.dimension.width"
+        [attr.height]="node.dimension.height"
+        [attr.fill]="node.data.customColor"
+      />
+      <svg:text 
+        alignment-baseline="central" 
+        [attr.x]="10" 
+        [attr.y]="node.dimension.height / 2" 
+        dominant-baseline="middle"
+        font-size="30px"
+        text-anchor="central"
+      >
+        {{node.label}}
+      </svg:text>
+    </svg:g>
+  </ng-template>
+</ngx-graph>

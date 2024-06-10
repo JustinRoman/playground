@@ -1,0 +1,23 @@
+.node {
+  display: flex;
+  align-items: center;
+}
+
+.children {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.item-name {
+  padding: 10px;
+  margin: 10px;
+  width: 300px;
+  border: 1px solid blueviolet;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.app-nested-item {
+  margin-left: 20px;
+}
