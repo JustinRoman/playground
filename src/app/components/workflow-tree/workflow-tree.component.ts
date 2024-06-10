@@ -1,13 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { dagData } from '../mocks/graph.mock';
-import { Edge, InputNode, Node } from '../models/graph.model';
+import { Component, Input, OnInit } from '@angular/core';
+import { InputNode } from '../models/graph.model';
 import { NodeComponent } from '../node/node.component';
 import { CommonModule } from '@angular/common';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'
-import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import { NgxGraphModule} from '@swimlane/ngx-graph'
-import {transition} from 'd3-transition';
-import * as d3 from 'd3';
 
 @Component({
   selector: 'app-workflow-tree',
@@ -17,7 +13,7 @@ import * as d3 from 'd3';
   styleUrl: './workflow-tree.component.css'
 })
 export class WorkflowTreeComponent implements OnInit {
-  data = dagData;
+  @Input() data: any = [];
   nodes: any = [];
   edges: any = [];
 
