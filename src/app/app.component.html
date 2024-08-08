@@ -1,1 +1,6 @@
 <app-workflow-tree *ngFor="let data of dagData" [data]="data"></app-workflow-tree>
+
+<div class="col-3">
+    <app-searchable-dropdown [items]="countries" [pageSize]="5" (selectedItemChange)="onSelectedItemChange($event)"></app-searchable-dropdown>
+    <pre>Selected Item: {{ selectedItem | json }}</pre>
+</div>
