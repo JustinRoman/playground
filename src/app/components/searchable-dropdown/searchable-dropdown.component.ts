@@ -21,6 +21,8 @@ export class SearchableDropdownComponent {
   selectedDisplayValue: string = 'Select an item';
   dropdownOpen: boolean = false;
 
+  constructor(){}
+
   ngOnInit(): void {
     this.filteredItems = this.items;
     this.paginateItems();
