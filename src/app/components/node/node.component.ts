@@ -9,7 +9,7 @@ import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
   standalone: true,
   imports: [CommonModule, FontAwesomeModule],
   templateUrl: './node.component.html',
-  styleUrl: './node.component.css'
+  styleUrls: ['./node.component.css']
 })
 export class NodeComponent {
   @Input() item!: Node;

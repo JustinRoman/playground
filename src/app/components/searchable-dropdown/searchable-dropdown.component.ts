@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, HostListener, Input, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 @Component({
@@ -6,7 +6,7 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [FormsModule, CommonModule],
   templateUrl: './searchable-dropdown.component.html',
-  styleUrl: './searchable-dropdown.component.css'
+  styleUrls: ['./searchable-dropdown.component.css']
 })
 export class SearchableDropdownComponent {
   @Input() items: any[] = [];
@@ -21,11 +21,18 @@ export class SearchableDropdownComponent {
   selectedDisplayValue: string = 'Select an item';
   dropdownOpen: boolean = false;
 
-  constructor(){}
+  constructor(private eRef: ElementRef){}
 
   ngOnInit(): void {
     this.filteredItems = this.items;
     this.paginateItems();
+  }
+
+  @HostListener('document:click', ['$event'])
+  onClickOutside(event: MouseEvent): void {
+    if (!this.eRef.nativeElement.contains(event.target)) {
+      this.dropdownOpen = false;
+    }
   }
 
   onSearchChange(searchTerm: string): void {

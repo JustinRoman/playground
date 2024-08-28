@@ -11,7 +11,7 @@ import { SearchableDropdownComponent } from './components/searchable-dropdown/se
   standalone: true,
   imports: [RouterOutlet, WorkflowTreeComponent, CommonModule, SearchableDropdownComponent],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
   title = 'playground';
@@ -19,6 +19,7 @@ export class AppComponent {
   countries = countries;
   
   selectedItem: string | null = null;
+
 
   onSelectedItemChange(item: string): void {
     this.selectedItem = item;

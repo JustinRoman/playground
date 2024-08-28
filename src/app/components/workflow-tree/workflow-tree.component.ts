@@ -10,7 +10,7 @@ import { NgxGraphModule} from '@swimlane/ngx-graph'
   standalone: true,
   imports: [NodeComponent, CommonModule, FontAwesomeModule, NgxGraphModule ],
   templateUrl: './workflow-tree.component.html',
-  styleUrl: './workflow-tree.component.css'
+  styleUrls: ['./workflow-tree.component.css']
 })
 export class WorkflowTreeComponent implements OnInit {
   @Input() data: any = [];
