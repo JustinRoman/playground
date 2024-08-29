@@ -1,42 +1,66 @@
 <div class="form-group">
-    <label for="selectField">Select an item</label>
-    <div class="dropdown">
-      <input
-        type="text"
-        class="form-control dropdown-toggle"
-        id="selectField"
-        aria-expanded="false"
-        (click)="toggleDropdown()"
-        [(ngModel)]="selectedDisplayValue"
-        readonly
+  <div class="dropdown" [class.disabled]="isDisabled">
+    <input 
+      type="text"
+      name="Select Field"
+      id="selectField"
+      class="form-control dropdown-toggle"
+      aria-expanded="false"
+      (click)="toggleDropdown()"
+      [(ngModel)]="selectedDisplayValue"
+      [disabled]="isDisabled"
+      readonly
+    >
+
+    <div class="dropdown-menu p-3 w-100" [class.show]="dropdownOpen">
+      <input 
+        type="text" 
+        class="form-control mb-2"
+        placeholder="Search..."
+        [(ngModel)]="searchTerm"
+        (ngModelChange)="onSearchChange($event)"
+        [disabled]="isDisabled"
       >
-      <div class="dropdown-menu p-3 w-100" [class.show]="dropdownOpen">
-        <input
-          class="form-control mb-2"
-          type="text"
-          placeholder="Search for..."
-          [(ngModel)]="searchTerm"
-          (ngModelChange)="onSearchChange($event)"
+
+      <div class="list-group mt-2 search-items overflow-auto">
+        <div
+          *ngFor="let item of paginatedItems"
+          role="button"
+          class="list-group-item list-group-item-action"
+          (click)="onSelectionChange(item)"
         >
-        <div class="list-group mt-2" style="max-height: 200px; overflow-y: auto;">
-          <a *ngFor="let item of paginatedItems" href="#" class="list-group-item list-group-item-action" (click)="onSelectionChange(item)">
-            {{ item.name }}
-          </a>
+          <input 
+            *ngIf="isMultiSelect"
+            type="checkbox"
+            [checked]="isSelected(item)"
+            (change)="onSelectionChange(item)"
+            (click)="$event.stopPropagation()"
+          >
+            {{getNestedProperty(item, displayProperty)}}
         </div>
-        
+      </div>
+
+      <div *ngIf="pageSize !== 0">
         <small class="text-muted">
-            Showing records {{pageIndex * pageSize + 1}} to {{minPage(pageIndex + 1, pageSize, filteredItems.length)}} of {{filteredItems.length}}
-          </small>
-        <nav aria-label="Page navigation example" class="mt-2">
+          Showing records {{pageIndex * pageSize + 1}} to {{minPage(pageIndex, pageSize, filteredItems.length)}} of {{filteredItems.length}}
+        </small>
+
+        <nav class="mt-2" aria-label="Select Field Navigation">
           <ul class="pagination justify-content-center mb-0">
             <li class="page-item" [class.disabled]="pageIndex === 0">
-              <a class="page-link" href="#" (click)="onPageChange(pageIndex - 1)">Previous</a>
+              <button type="button" class="page-link" (click)="onPageChange(pageIndex - 1)" [disabled]="isDisabled">
+                <span aria-hidden="true">&laquo; Previous</span>
+              </button>
             </li>
-            <li class="page-item" [class.disabled]="(pageIndex + 1) * pageSize >= filteredItems.length">
-              <a class="page-link" href="#" (click)="onPageChange(pageIndex + 1)">Next</a>
+
+            <li class="page-item" [class.disabled]="(pageIndex + 1 * pageSize >= filteredItems.length)">
+              <button type="button" class="page-link" (click)="onPageChange(pageIndex + 1)" [disabled]="isDisabled">
+                <span aria-hidden="true">Next &raquo;</span>
+              </button>
             </li>
           </ul>
         </nav>
       </div>
     </div>
+  </div>
 </div>
