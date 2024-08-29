@@ -1,4 +1,23 @@
-export const countries = [ 
+export interface Country {
+  name: string;
+  code: string;
+}
+
+export interface NestedCountry {
+  country: Country
+}
+
+export const nestedCountryList = [
+  { country: { name: 'Afghanistan', code: 'AF' } },
+  { country: { name: '1 Åland Islands', code: 'AX' } },
+  { country: { name: '3 Albania', code: 'AL' } },
+  { country: { name: '2 Algeria', code: 'DZ' } },
+  { country: { name: '4 American Samoa', code: 'AS' } },
+  { country: { name: 'AndorrA', code: 'AD' } },
+  { country: { name: 'Angola', code: 'AO' } },
+]
+
+export const countriesList = [ 
     {name: 'Afghanistan', code: 'AF'}, 
     {name: 'Åland Islands', code: 'AX'}, 
     {name: 'Albania', code: 'AL'}, 

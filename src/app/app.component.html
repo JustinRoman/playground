@@ -1,6 +1,15 @@
 <app-workflow-tree *ngFor="let data of dagData" [data]="data"></app-workflow-tree>
 
 <div class="col-3">
-    <app-searchable-dropdown [items]="countries" [pageSize]="5" (selectedItemChange)="onSelectedItemChange($event)"></app-searchable-dropdown>
+    <button (click)="toggleDisable()" class="btn btn-warning">Toggle Disable Dropdown</button>
+    <app-searchable-dropdown 
+        [dropdownItems]="countries$" 
+        [pageSize]="10" 
+        displayProperty="name" 
+        [isMultiSelect]="false"
+        [isDisabled]="isDropdownDisabled"
+        (dropdownSelectionChange)="onSelectedItemChange($event)">
+    </app-searchable-dropdown>
+
     <pre>Selected Item: {{ selectedItem | json }}</pre>
 </div>
