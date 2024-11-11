@@ -1,4 +1,4 @@
-<app-workflow-tree *ngFor="let data of dagData" [data]="data"></app-workflow-tree>
+<!-- <app-workflow-tree *ngFor="let data of dagData" [data]="data"></app-workflow-tree> -->
 
 <div class="col-3">
     <button (click)="toggleDisable()" class="btn btn-warning">Toggle Disable Dropdown</button>
@@ -6,10 +6,59 @@
         [dropdownItems]="countries$" 
         [pageSize]="10" 
         displayProperty="name" 
-        [isMultiSelect]="false"
+        [isMultiSelect]="true"
         [isDisabled]="isDropdownDisabled"
         (dropdownSelectionChange)="onSelectedItemChange($event)">
     </app-searchable-dropdown>
 
     <pre>Selected Item: {{ selectedItem | json }}</pre>
 </div>
+
+<form [formGroup]="loginForm">
+    <label for="username">Username:</label>
+    <input type="text" name="username" id="username-input" formControlName="username">
+    <label for="password">Password:</label>
+    <input type="password" name="password" id="password-input" formControlName="password">
+    <button 
+      type="submit" 
+      id="login-button" 
+      [disabled]="loginForm.invalid"
+      (click)="submit()"
+    >Submit</button>
+</form>
+
+<form [formGroup]="filterCheckboxesForm">
+  <div *ngFor="let item of filters">
+    <input 
+      type="checkbox" 
+      [formControlName]="item"
+    />
+    <label>{{ item }}</label>
+  </div>
+</form>
+<div *ngIf="dynamicForm">
+  <form [formGroup]="dynamicForm">
+    <div formArrayName="fields">
+      <div *ngFor="let control of dynamicFormControls.controls; let i = index">
+        <label>{{ dynamicControls[i].name }}</label>
+        <div [ngSwitch]="dynamicControls[i].type">
+          <input 
+            *ngSwitchCase="'text'" 
+            type="text" 
+            [formControlName]="i" 
+            placeholder="Enter text for {{ dynamicControls[i].name }}" 
+          />
+          <input 
+            *ngSwitchCase="'date'" 
+            type="date" 
+            [formControlName]="i" 
+          />
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+<p>Checked Values: {{ checkedValues | json }}</p>
+<button (click)="getSelectedValues()">Get Selected Values</button>
+<button (click)="getDynamicFormValues()">Get Dynamic form values</button>
